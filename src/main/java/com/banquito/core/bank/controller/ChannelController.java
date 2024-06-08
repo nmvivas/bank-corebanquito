@@ -34,5 +34,4 @@ public class ChannelController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

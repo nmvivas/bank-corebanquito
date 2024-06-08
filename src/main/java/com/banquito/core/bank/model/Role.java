@@ -22,6 +22,7 @@ public class Role implements Serializable {
     @Id
     @Column(name = "CODE_ROLE", length = 10, nullable = false)
     private String code;
+
     @Column(name = "NAME", length = 50, nullable = false)
     private String name;
 

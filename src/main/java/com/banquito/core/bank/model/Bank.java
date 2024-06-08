@@ -19,8 +19,10 @@ public class Bank implements Serializable {
     @Id
     @Column(name = "CODE_BANK", length = 20, nullable = false)
     private String code;
+
     @Column(name = "NAME", length = 100, nullable = false)
     private String name;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "START_DATE", nullable = false)
     private Date startDate;

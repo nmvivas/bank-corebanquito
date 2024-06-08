@@ -24,15 +24,16 @@ public class Channel implements Serializable {
     @Id
     @Column(name = "CODE_CHANNEL", length = 10, nullable = false)
     private String code;
+
     @Column(name = "CODE_BANK", length = 20, nullable = false)
     private String codeBank;
+
     @Column(name = "NAME", length = 20, nullable = false)
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "CODE_BANK", referencedColumnName = "CODE_BANK", insertable = false, updatable = false)
     private Bank bank;
-    // revisar equals y hash
 
     public Channel(String code) {
         this.code = code;

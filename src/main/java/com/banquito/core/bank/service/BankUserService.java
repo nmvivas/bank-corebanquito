@@ -1,5 +1,6 @@
 package com.banquito.core.bank.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class BankUserService {
         this.repository = repository;
     }
 
+    public List<BankUser> getAllBankUsers() {
+        return this.repository.findAll();
+    }
+
     public BankUser obtainUserById(Long id) {
         Optional<BankUser> userOpt = this.repository.findById(id);
         if (userOpt.isPresent()) {
@@ -26,7 +31,7 @@ public class BankUserService {
     }
 
     public BankUser obtainByUserName(String userName) {
-        BankUser user = this.repository.findByUsername(userName);
+        BankUser user = this.repository.findByUserName(userName);
         if (user != null) {
             return user;
         } else {
@@ -40,6 +45,26 @@ public class BankUserService {
             return user;
         } else {
             throw new RuntimeException("No existe usuario con el email:" + email);
+        }
+    }
+
+    public BankUser createBankUser(BankUser bankUser) {
+        return this.repository.save(bankUser);
+    }
+
+    public BankUser updateBankUser(Long id, BankUser bankUser) {
+        if (this.repository.existsById(id)) {
+            return this.repository.save(bankUser);
+        } else {
+            throw new RuntimeException("No existe el usuario con id: " + id);
+        }
+    }
+
+    public void deleteBankUser(Long id) {
+        if (this.repository.existsById(id)) {
+            this.repository.deleteById(id);
+        } else {
+            throw new RuntimeException("No existe el usuario con id: " + id);
         }
     }
 }

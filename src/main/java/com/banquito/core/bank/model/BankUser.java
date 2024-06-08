@@ -25,40 +25,48 @@ import lombok.ToString;
 @Entity
 @Table(name = "BANK_USER")
 public class BankUser implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BANK_USER_ID", nullable = false)
     private Long id;
-    @Column(name = "CODE_BANK", nullable = false)
-    private String codeBank;
-    @Column(name = "CODE_ROLE", nullable = false)
-    private String codeRole;
+
     @Column(name = "USER_NAME", length = 20, nullable = false)
-    private String username;
+    private String userName;
+
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
     private String firstName;
+
     @Column(name = "LAST_NAME", length = 50, nullable = false)
     private String lastName;
+
     @Column(name = "FULL_NAME", length = 100, nullable = false)
     private String fullName;
+
     @Column(name = "TYPE_USER", length = 3, nullable = false)
     private String typeUser;
+
     @Column(name = "PASSWORD", length = 64, nullable = false)
     private String password;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
     private Timestamp creationDate;
+
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LAST_LOGIN")
+    @Column(name = "LAST_LOGIN", nullable = false)
     private Timestamp lastLogin;
+
     @Column(name = "EMAIL", length = 100, nullable = false)
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "CODE_BANK", referencedColumnName = "CODE_BANK", insertable = false, updatable = false)
     private Bank bank;
+
     @ManyToOne
     @JoinColumn(name = "CODE_ROLE", referencedColumnName = "CODE_ROLE", insertable = false, updatable = false)
     private Role role;
