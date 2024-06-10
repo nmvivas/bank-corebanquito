@@ -13,7 +13,7 @@ import java.util.List;
 public class BankUserController {
 
     @Autowired
-    private BankUserService bankUserService; // PORQUE NO ES FINAL?
+    private BankUserService bankUserService;
 
     @GetMapping
     public ResponseEntity<List<BankUser>> getAllBankUsers() {
@@ -61,5 +61,25 @@ public class BankUserController {
     public ResponseEntity<Void> deleteBankUser(@PathVariable Long id) {
         this.bankUserService.deleteBankUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<BankUser> login(@RequestParam String userName, @RequestParam String password) {
+        try {
+            BankUser user = bankUserService.validateUser(userName, password);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException rte) {
+            return ResponseEntity.status(401).build();
+        }
+    }
+
+    @GetMapping("/client/{username}")
+    public ResponseEntity<BankUser> getClientByUsername(@PathVariable String userName) {
+        try {
+            BankUser user = bankUserService.obtainByUserName(userName);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException rte) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

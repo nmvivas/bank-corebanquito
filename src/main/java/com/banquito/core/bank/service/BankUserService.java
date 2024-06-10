@@ -67,4 +67,13 @@ public class BankUserService {
             throw new RuntimeException("No existe el usuario con id: " + id);
         }
     }
+
+    public BankUser validateUser(String userName, String password) {
+        BankUser user = repository.findByUserName(userName);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        } else {
+            throw new RuntimeException("Usuario o contrasena invalidos");
+        }
+    }
 }
