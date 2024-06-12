@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChannelRepository extends JpaRepository<Channel, String> {
 
-    List<Channel> findAllByOrderByName();
+    List<Channel> findAllByOrderByNameAsc();
 
 }

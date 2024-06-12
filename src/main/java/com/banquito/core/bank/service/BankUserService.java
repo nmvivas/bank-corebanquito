@@ -6,21 +6,27 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.banquito.core.bank.model.BankUser;
+import com.banquito.core.bank.repository.BankRepository;
 import com.banquito.core.bank.repository.BankUserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class BankUserService {
 
     private final BankUserRepository repository;
+    private final BankRepository bankRepository;
 
-    public BankUserService(BankUserRepository repository) {
+    public BankUserService(BankUserRepository repository, BankRepository bankRepository) {
         this.repository = repository;
+        this.bankRepository = bankRepository;
     }
 
     public List<BankUser> getAllBankUsers() {
         return this.repository.findAll();
     }
 
+    @Transactional(Transactional.TxType.NEVER)
     public BankUser obtainUserById(Long id) {
         Optional<BankUser> userOpt = this.repository.findById(id);
         if (userOpt.isPresent()) {

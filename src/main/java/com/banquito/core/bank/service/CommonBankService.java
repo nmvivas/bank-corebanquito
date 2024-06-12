@@ -52,7 +52,7 @@ public class CommonBankService {
 
     // Channel related methods
     public List<Channel> obtainAllChannels() {
-        return this.channelRepository.findAllByOrderByName();
+        return this.channelRepository.findAllByOrderByNameAsc();
     }
 
     public Channel obtainChannel(String code) {

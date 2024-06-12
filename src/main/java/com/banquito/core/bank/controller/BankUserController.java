@@ -1,5 +1,6 @@
 package com.banquito.core.bank.controller;
 
+import com.banquito.core.bank.dto.BankUserDTO;
 import com.banquito.core.bank.model.BankUser;
 import com.banquito.core.bank.service.BankUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,11 @@ public class BankUserController {
     public ResponseEntity<BankUser> createBankUser(@RequestBody BankUser bankUser) {
         return ResponseEntity.ok(this.bankUserService.createBankUser(bankUser));
     }
+
+    // @PostMapping
+    // public ResponseEntity<BankUserDTO> createUser(@RequestBody BankUserDTO dto) {
+    // this.service.create(dto);
+    // }
 
     @PutMapping("/{id}")
     public ResponseEntity<BankUser> updateBankUser(@PathVariable Long id, @RequestBody BankUser bankUser) {
