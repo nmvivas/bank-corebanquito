@@ -26,17 +26,15 @@ public class CommonBankService {
         this.channelRepository = channelRepository;
     }
 
-    // Bank related methods
     public Bank obtainBankDefault() {
         List<Bank> banks = this.bankRepository.findAll();
         if (!banks.isEmpty()) {
-            return banks.get(0);
+            return banks.getFirst();
         } else {
             throw new RuntimeException("No se encuentra ningun banco");
         }
     }
 
-    // Role related methods
     public List<Role> obtainAllRoles() {
         return this.roleRepository.findAll();
     }
@@ -50,7 +48,6 @@ public class CommonBankService {
         }
     }
 
-    // Channel related methods
     public List<Channel> obtainAllChannels() {
         return this.channelRepository.findAllByOrderByNameAsc();
     }

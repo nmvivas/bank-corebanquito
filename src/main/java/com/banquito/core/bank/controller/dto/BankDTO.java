@@ -1,10 +1,12 @@
-package com.banquito.core.bank.dto;
+package com.banquito.core.bank.controller.dto;
 
 import java.util.Date;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
-@Data
+@Value
+@Builder
 public class BankDTO {
 
     private String code;
