@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.core.bank.controller.dto.ChannelDTO;
@@ -14,6 +16,8 @@ import com.banquito.core.bank.model.Channel;
 import com.banquito.core.bank.service.CommonBankService;
 import com.banquito.core.bank.util.mapper.ChannelMapper;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.PUT })
 @RestController
 @RequestMapping(path = "/channels")
 public class ChannelController {

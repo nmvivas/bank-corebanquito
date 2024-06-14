@@ -1,15 +1,19 @@
 package com.banquito.core.bank.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.core.bank.controller.dto.BankUserDTO;
 import com.banquito.core.bank.controller.dto.UserPasswordDTO;
 import com.banquito.core.bank.service.AuthenticationService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.PUT })
 @RestController
 @RequestMapping("/login")
 public class AuthenticationController {

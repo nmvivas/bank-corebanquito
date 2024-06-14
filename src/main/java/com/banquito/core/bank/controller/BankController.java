@@ -8,9 +8,13 @@ import com.banquito.core.bank.service.CommonBankService;
 import com.banquito.core.bank.util.mapper.BankMapper;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.PUT })
 @RestController
 @RequestMapping(path = "/bank")
 public class BankController {
