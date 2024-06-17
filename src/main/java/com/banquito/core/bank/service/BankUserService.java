@@ -77,7 +77,6 @@ public class BankUserService {
         user.setState("BLO");
         user.setTypeUser("TEL");
         user.setCreationDate(LocalDateTime.now());
-        // Generar y encriptar password
         String generatedPassword = generateRandomPassword();
         user.setPassword(DigestUtils.md5Hex(generatedPassword));
         BankUser userCreated = this.repository.save(user);
@@ -94,6 +93,8 @@ public class BankUserService {
             throw new RuntimeException("No existe el usuario: " + userPassword.getUserName());
         }
         user.setPassword(userPassword.getPassword());
+        String md5Hex2 = DigestUtils.md5Hex(userPassword.getPassword());
+        user.setPassword(md5Hex2);
         this.repository.save(user);
     }
 
@@ -102,7 +103,6 @@ public class BankUserService {
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userName);
         }
-        // Generar y encriptar clave
         String generatedPassword = generateRandomPassword();
         String md5Hex = DigestUtils.md5Hex(generatedPassword);
         user.setPassword(md5Hex);

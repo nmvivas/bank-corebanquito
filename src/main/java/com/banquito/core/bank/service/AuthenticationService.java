@@ -24,10 +24,10 @@ public class AuthenticationService {
 
     public BankUserDTO login(UserPasswordDTO dto) {
         String errorMessage = "Credenciales invalidas";
+        BankUser user = this.bankUserRepository.findByUsername(dto.getUserName());
+        String md5 = DigestUtils.md5Hex(dto.getPassword());
         if (dto.getUserName() != null && dto.getPassword() != null && dto.getUserName().length() > 3
-                && dto.getPassword().length() == 32) {
-            BankUser user = this.bankUserRepository.findByUsername(dto.getUserName());
-            String md5 = DigestUtils.md5Hex(dto.getPassword());
+                && md5.length() == 32) {
             if (user.getPassword().equals(md5)) {
                 user.setLastLogin(LocalDateTime.now());
                 this.bankUserRepository.save(user);
@@ -37,7 +37,9 @@ public class AuthenticationService {
                     errorMessage = "Usuario no es activo";
                 }
             }
+            
         }
         throw new RuntimeException(errorMessage);
+        
     }
 }

@@ -16,7 +16,7 @@ import com.banquito.core.bank.service.CommonBankService;
 import com.banquito.core.bank.util.mapper.RoleMapper;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
-        RequestMethod.PUT })
+RequestMethod.PUT })
 @RestController
 @RequestMapping(path = "/roles")
 public class RoleController {

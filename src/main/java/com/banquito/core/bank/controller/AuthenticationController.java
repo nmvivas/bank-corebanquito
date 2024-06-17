@@ -12,8 +12,7 @@ import com.banquito.core.bank.controller.dto.BankUserDTO;
 import com.banquito.core.bank.controller.dto.UserPasswordDTO;
 import com.banquito.core.bank.service.AuthenticationService;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
-        RequestMethod.PUT })
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,RequestMethod.PUT })
 @RestController
 @RequestMapping("/login")
 public class AuthenticationController {

@@ -16,8 +16,7 @@ import com.banquito.core.bank.model.Channel;
 import com.banquito.core.bank.service.CommonBankService;
 import com.banquito.core.bank.util.mapper.ChannelMapper;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
-        RequestMethod.PUT })
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,RequestMethod.PUT })
 @RestController
 @RequestMapping(path = "/channels")
 public class ChannelController {

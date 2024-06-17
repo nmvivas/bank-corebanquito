@@ -22,7 +22,7 @@ import com.banquito.core.bank.service.BankUserService;
 import com.banquito.core.bank.util.mapper.BankUserMapper;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
-        RequestMethod.PUT })
+RequestMethod.PUT })
 @RestController
 @RequestMapping(path = "/users")
 public class UserBankController {
