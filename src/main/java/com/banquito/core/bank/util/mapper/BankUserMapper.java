@@ -13,7 +13,7 @@ public interface BankUserMapper {
 
     @Mapping(source = "username", target = "userName")
     @Mapping(source = "role.name", target = "nameRole")
-    BankUserDTO toDTO(BankUser bank);
+    BankUserDTO toDTO(BankUser bankUser);
 
     @Mapping(source = "userName", target = "username")
     BankUser toPersistence(BankUserDTO dto);
