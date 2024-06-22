@@ -104,5 +104,4 @@ public class BankUser implements Serializable {
             return false;
         return true;
     }
-
 }

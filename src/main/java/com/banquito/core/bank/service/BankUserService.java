@@ -12,8 +12,10 @@ import com.banquito.core.bank.controller.dto.BankUserDTO;
 import com.banquito.core.bank.controller.dto.UserPasswordDTO;
 import com.banquito.core.bank.model.Bank;
 import com.banquito.core.bank.model.BankUser;
+import com.banquito.core.bank.model.Role;
 import com.banquito.core.bank.repository.BankRepository;
 import com.banquito.core.bank.repository.BankUserRepository;
+import com.banquito.core.bank.repository.RoleRepository;
 import com.banquito.core.bank.util.mapper.BankUserMapper;
 
 import jakarta.transaction.Transactional;
@@ -24,15 +26,17 @@ public class BankUserService {
 
     private final BankUserRepository repository;
     private final BankRepository bankRepository;
+    private final RoleRepository roleRepository;
     private final BankUserMapper bankUserMapper;
     private final SecureRandom random = new SecureRandom();
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int PASSWORD_LENGTH = 10;
 
-    public BankUserService(BankUserRepository repository, BankRepository bankRepository,
+    public BankUserService(BankUserRepository repository, BankRepository bankRepository, RoleRepository roleRepository,
             BankUserMapper bankUserMapper) {
         this.repository = repository;
         this.bankRepository = bankRepository;
+        this.roleRepository = roleRepository;
         this.bankUserMapper = bankUserMapper;
     }
 
@@ -66,17 +70,31 @@ public class BankUserService {
 
     public BankUserDTO create(BankUserDTO dto) {
         if (this.repository.findByUsername(dto.getUserName()) != null) {
-            throw new RuntimeException("usuario repetido");
+            throw new RuntimeException("Usuario repetido");
         }
         if (this.repository.findByEmail(dto.getEmail()) != null) {
             throw new RuntimeException("Email repetido");
         }
+
         BankUser user = this.bankUserMapper.toPersistence(dto);
-        Bank bank = this.bankRepository.findAll().get(0);
+
+        List<Bank> banks = this.bankRepository.findAll();
+        if (banks.isEmpty()) {
+            throw new RuntimeException("No hay bancos disponibles");
+        }
+        Bank bank = banks.get(0);
+
+        Optional<Role> roleOpt = this.roleRepository.findById(dto.getCodeRole());
+        if (roleOpt.isEmpty()) {
+            throw new RuntimeException("Rol no encontrado");
+        }
+        Role role = roleOpt.get();
+
         user.setCodeBank(bank.getCode());
-        user.setState("BLO");
-        user.setTypeUser("TEL");
+        user.setTypeUser(dto.getTypeUser());
+        user.setRole(role);
         user.setCreationDate(LocalDateTime.now());
+        user.setLastLogin(LocalDateTime.now());
         String generatedPassword = generateRandomPassword();
         user.setPassword(DigestUtils.md5Hex(generatedPassword));
         BankUser userCreated = this.repository.save(user);

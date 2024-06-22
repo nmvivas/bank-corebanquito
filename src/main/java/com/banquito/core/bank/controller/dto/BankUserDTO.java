@@ -16,6 +16,7 @@ public class BankUserDTO {
     private String lastName;
     private String password;
     private String state;
+    private String typeUser;
     private LocalDateTime lastLogin;
     private String email;
 

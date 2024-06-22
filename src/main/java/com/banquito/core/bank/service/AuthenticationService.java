@@ -37,7 +37,9 @@ public class AuthenticationService {
                     errorMessage = "Usuario no es activo";
                 }
             }
+
         }
         throw new RuntimeException(errorMessage);
+
     }
 }
