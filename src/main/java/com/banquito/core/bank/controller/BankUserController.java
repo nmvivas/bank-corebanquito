@@ -35,6 +35,16 @@ public class BankUserController {
         this.bankUserMapper = bankUserMapper;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<BankUserDTO>> getAllUsers() {
+        try {
+            List<BankUserDTO> users = this.service.getAllUsers();
+            return ResponseEntity.ok(users);
+        } catch (RuntimeException rte) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<BankUserDTO> createUser(@RequestBody BankUserDTO dto) {
         try {

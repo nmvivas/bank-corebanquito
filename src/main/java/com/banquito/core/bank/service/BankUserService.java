@@ -40,6 +40,11 @@ public class BankUserService {
         this.bankUserMapper = bankUserMapper;
     }
 
+    public List<BankUserDTO> getAllUsers() {
+        List<BankUser> users = this.repository.findAll();
+        return users.stream().map(bankUserMapper::toDTO).toList();
+    }
+
     @Transactional(Transactional.TxType.NEVER)
     public BankUser obtainUserById(Long id) {
         Optional<BankUser> userOpt = this.repository.findById(id);
