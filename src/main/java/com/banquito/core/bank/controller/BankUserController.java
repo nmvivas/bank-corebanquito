@@ -22,15 +22,15 @@ import com.banquito.core.bank.service.BankUserService;
 import com.banquito.core.bank.util.mapper.BankUserMapper;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
-RequestMethod.PUT })
+        RequestMethod.PUT })
 @RestController
 @RequestMapping(path = "/users")
-public class UserBankController {
+public class BankUserController {
 
     private final BankUserMapper bankUserMapper;
     private final BankUserService service;
 
-    public UserBankController(BankUserService service, BankUserMapper bankUserMapper) {
+    public BankUserController(BankUserService service, BankUserMapper bankUserMapper) {
         this.service = service;
         this.bankUserMapper = bankUserMapper;
     }
