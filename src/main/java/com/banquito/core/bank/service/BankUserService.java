@@ -77,9 +77,6 @@ public class BankUserService {
         if (this.repository.findByUsername(dto.getUserName()) != null) {
             throw new RuntimeException("Usuario repetido");
         }
-        if (this.repository.findByEmail(dto.getEmail()) != null) {
-            throw new RuntimeException("Email repetido");
-        }
 
         BankUser user = this.bankUserMapper.toPersistence(dto);
 
