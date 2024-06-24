@@ -100,9 +100,7 @@ public class BankUserService {
         user.setRole(role);
         user.setCreationDate(LocalDateTime.now());
         user.setLastLogin(LocalDateTime.now());
-        // TODO decidir si se elimina el password autogenerado o no
-        // String generatedPassword = generateRandomPassword();
-        // user.setPassword(DigestUtils.md5Hex(generatedPassword));
+
         String md5Hex = DigestUtils.md5Hex(dto.getPassword());
         user.setPassword(md5Hex);
 
