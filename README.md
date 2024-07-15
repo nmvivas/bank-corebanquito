@@ -1,2 +1,0 @@
-# CoreBanquito-bank
-CoreBanquito-bank
