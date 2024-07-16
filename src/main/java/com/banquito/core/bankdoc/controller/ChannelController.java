@@ -15,7 +15,7 @@ import com.banquito.core.bankdoc.model.Channel;
 import com.banquito.core.bankdoc.service.ChannelService;
 
 @RestController
-@RequestMapping("/api/channel")
+@RequestMapping("/api/v1/channel")
 public class ChannelController {
 
     private final ChannelService channelService;
