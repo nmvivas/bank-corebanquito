@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 public class ChannelDTO {
     private String id;
     private String code;
+    private String codeBank;
+    private String nameBank;
     private String name;
-    private String bankCode;
-    private String startDate;
 }

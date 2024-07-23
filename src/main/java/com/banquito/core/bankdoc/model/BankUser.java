@@ -22,6 +22,8 @@ public class BankUser {
 
     private String codeBank;
 
+    private String uniqueId;
+
     private String nameBank;
 
     private String userName;
