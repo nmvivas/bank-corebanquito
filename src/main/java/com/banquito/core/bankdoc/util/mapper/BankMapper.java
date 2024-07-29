@@ -2,6 +2,7 @@ package com.banquito.core.bankdoc.util.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
+import org.springframework.stereotype.Component;
 
 import com.banquito.core.bankdoc.dto.BankDTO;
 import com.banquito.core.bankdoc.model.Bank;
@@ -12,6 +13,7 @@ public interface BankMapper {
 
     Bank toBank(BankDTO bankDTO);
 
+    @Component
     class BankFactory {
         @ObjectFactory
         public Bank create(BankDTO dto) {
