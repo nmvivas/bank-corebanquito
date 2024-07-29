@@ -36,3 +36,11 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+compileJava {
+    options.compilerArgs += [
+        '-Amapstruct.suppressGeneratorTimestamp=true',
+        '-Amapstruct.suppressGeneratorVersionInfoComment=true',
+        '-Amapstruct.verbose=true'
+    ]
+}
