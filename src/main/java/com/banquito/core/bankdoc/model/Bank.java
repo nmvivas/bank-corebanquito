@@ -28,6 +28,13 @@ public class Bank {
 
     private Date startDate;
 
+    public Bank(String id, String code, String name, Date startDate) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.startDate = startDate;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

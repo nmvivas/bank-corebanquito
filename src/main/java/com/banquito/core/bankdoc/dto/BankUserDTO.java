@@ -2,6 +2,8 @@ package com.banquito.core.bankdoc.dto;
 
 import java.time.LocalDateTime;
 
+import com.banquito.core.bankdoc.util.mapper.Default;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class BankUserDTO {
+    @Default
     private String id;
     private String codeBank;
     private String uniqueId;

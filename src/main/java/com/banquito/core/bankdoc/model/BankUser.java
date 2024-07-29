@@ -44,6 +44,24 @@ public class BankUser {
 
     private String email;
 
+    public BankUser(String id, String codeBank, String uniqueId, String nameBank, String userName, String lastName,
+            String fullName, String typeUser, String password, LocalDateTime creationDate, String state,
+            LocalDateTime lastLogin, String email) {
+        this.id = id;
+        this.codeBank = codeBank;
+        this.uniqueId = uniqueId;
+        this.nameBank = nameBank;
+        this.userName = userName;
+        this.lastName = lastName;
+        this.fullName = fullName;
+        this.typeUser = typeUser;
+        this.password = password;
+        this.creationDate = creationDate;
+        this.state = state;
+        this.lastLogin = lastLogin;
+        this.email = email;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

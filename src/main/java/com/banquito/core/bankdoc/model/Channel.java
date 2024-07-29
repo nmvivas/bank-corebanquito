@@ -28,6 +28,14 @@ public class Channel {
 
     private String name;
 
+    public Channel(String id, String code, String codeBank, String nameBank, String name) {
+        this.id = id;
+        this.code = code;
+        this.codeBank = codeBank;
+        this.nameBank = nameBank;
+        this.name = name;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
