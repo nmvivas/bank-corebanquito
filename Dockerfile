@@ -1,3 +1,5 @@
+# docker build -t clientdoc .
+
 FROM eclipse-temurin:21-jre-alpine
 COPY build/libs/bankdoc-0.0.1-SNAPSHOT.jar /app/bankdoc-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java", "-jar", "/app/bankdoc-0.0.1-SNAPSHOT.jar"]

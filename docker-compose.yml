@@ -4,6 +4,7 @@ services:
   clientdoc:
     build:
       context: .
+    image: clientdoc
     container_name: clientdoc-container
     ports:
       - "8080:8080"

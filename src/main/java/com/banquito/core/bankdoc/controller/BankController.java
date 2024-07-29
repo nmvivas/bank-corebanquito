@@ -2,6 +2,7 @@ package com.banquito.core.bankdoc.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import com.banquito.core.bankdoc.service.BankService;
 
 @RestController
 @RequestMapping("/api/v1/bank")
+@CrossOrigin(origins = "*")
 public class BankController {
 
     private final BankService bankService;

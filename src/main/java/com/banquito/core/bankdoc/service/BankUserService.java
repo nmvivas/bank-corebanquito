@@ -43,6 +43,7 @@ public class BankUserService {
     }
 
     public BankUser save(BankUser bankUser) {
+        bankUser.setPassword(DigestUtils.md5DigestAsHex(bankUser.getPassword().getBytes()));
         return bankUserRepository.save(bankUser);
     }
 
@@ -86,8 +87,7 @@ public class BankUserService {
         user.setCreationDate(LocalDateTime.now());
         user.setLastLogin(LocalDateTime.now());
 
-        String md5Hex = DigestUtils.md5DigestAsHex(dto.getPassword().getBytes());
-        user.setPassword(md5Hex);
+        user.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
 
         BankUser userCreated = this.bankUserRepository.save(user);
         return this.bankUserMapper.toBankUserDTO(userCreated);
@@ -102,9 +102,8 @@ public class BankUserService {
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userPassword.getUserName());
         }
-        user.setPassword(userPassword.getPassword());
-        String md5Hex2 = DigestUtils.md5DigestAsHex(userPassword.getPassword().getBytes());
-        user.setPassword(md5Hex2);
+        String hashedPassword = DigestUtils.md5DigestAsHex(userPassword.getPassword().getBytes());
+        user.setPassword(hashedPassword);
         this.bankUserRepository.save(user);
     }
 
@@ -114,8 +113,8 @@ public class BankUserService {
             throw new RuntimeException("No existe el usuario: " + userName);
         }
         String generatedPassword = generateRandomPassword();
-        String md5Hex = DigestUtils.md5DigestAsHex(generatedPassword.getBytes());
-        user.setPassword(md5Hex);
+        String hashedPassword = DigestUtils.md5DigestAsHex(generatedPassword.getBytes());
+        user.setPassword(hashedPassword);
         this.bankUserRepository.save(user);
     }
 
