@@ -1,4 +1,6 @@
 # docker build -t clientdoc .
+# docker-compose down
+# docker-compose up -d --build
 
 FROM eclipse-temurin:21-jre-alpine
 COPY build/libs/bankdoc-0.0.1-SNAPSHOT.jar /app/bankdoc-0.0.1-SNAPSHOT.jar

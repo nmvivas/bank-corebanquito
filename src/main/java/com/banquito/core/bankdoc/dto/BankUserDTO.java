@@ -1,16 +1,13 @@
 package com.banquito.core.bankdoc.dto;
 
-import lombok.Builder;
-import lombok.Value;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
-@Value
+@Getter
 @Builder
-@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class BankUserDTO {
     private String id;

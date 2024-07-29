@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.core.bankdoc.dto.BankUserDTO;
 import com.banquito.core.bankdoc.service.AuthenticationService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @CrossOrigin(origins = "*")
+@Tag(name = "Authentication", description = "Endpoints for authentication")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -21,6 +25,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login user", description = "Authenticate user with credentials")
     public BankUserDTO login(@RequestBody BankUserDTO bankUserDTO) {
         return authenticationService.login(bankUserDTO);
     }
