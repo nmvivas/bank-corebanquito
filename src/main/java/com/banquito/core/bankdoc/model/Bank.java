@@ -52,5 +52,4 @@ public class Bank {
             return false;
         return true;
     }
-
 }
