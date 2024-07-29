@@ -51,7 +51,7 @@ public class BankUserService {
     }
 
     public BankUser findByUsername(String userName) {
-        BankUser user = this.bankUserRepository.findByUsername(userName);
+        BankUser user = this.bankUserRepository.findByUserName(userName);
         if (user != null) {
             return user;
         } else {
@@ -69,7 +69,7 @@ public class BankUserService {
     }
 
     public BankUserDTO create(BankUserDTO dto) {
-        if (this.bankUserRepository.findByUsername(dto.getUserName()) != null) {
+        if (this.bankUserRepository.findByUserName(dto.getUserName()) != null) {
             throw new RuntimeException("Usuario repetido");
         }
 
@@ -98,7 +98,7 @@ public class BankUserService {
     }
 
     public void changePassword(BankUserDTO userPassword) {
-        BankUser user = this.bankUserRepository.findByUsername(userPassword.getUserName());
+        BankUser user = this.bankUserRepository.findByUserName(userPassword.getUserName());
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userPassword.getUserName());
         }
@@ -109,7 +109,7 @@ public class BankUserService {
     }
 
     public void generatePassword(String userName) {
-        BankUser user = this.bankUserRepository.findByUsername(userName);
+        BankUser user = this.bankUserRepository.findByUserName(userName);
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userName);
         }

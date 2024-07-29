@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.banquito.core.bankdoc.model.BankUser;
 
 public interface BankUserRepository extends MongoRepository<BankUser, String> {
-    BankUser findByUsername(String userName);
+    BankUser findByUserName(String userName); // Actualizado
 
     BankUser findByEmail(String email);
 

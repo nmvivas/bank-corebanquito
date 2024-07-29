@@ -23,7 +23,7 @@ public class AuthenticationService {
 
     public BankUserDTO login(BankUserDTO dto) {
         String errorMessage = "Credenciales invalidas";
-        BankUser user = this.bankUserRepository.findByUsername(dto.getUserName());
+        BankUser user = this.bankUserRepository.findByUserName(dto.getUserName());
         String md5 = DigestUtils.md5DigestAsHex(dto.getPassword().getBytes());
         if (dto.getUserName() != null && dto.getPassword() != null && dto.getUserName().length() > 3
                 && md5.length() == 32) {
