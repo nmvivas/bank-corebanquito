@@ -94,7 +94,7 @@ public class BankUserService {
     }
 
     public List<BankUser> findByLastName(String lastName) {
-        return this.bankUserRepository.findTop100ByLastNameLikeOrderByLastNameAscFirstNameAsc(lastName);
+        return this.bankUserRepository.findTop100ByLastNameLikeOrderByLastNameAsc(lastName);
     }
 
     public void changePassword(BankUserDTO userPassword) {
