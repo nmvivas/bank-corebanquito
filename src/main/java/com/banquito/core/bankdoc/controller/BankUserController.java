@@ -1,6 +1,7 @@
 package com.banquito.core.bankdoc.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,12 @@ public class BankUserController {
 
     @GetMapping("/{id}")
     public BankUser getBankUserById(@PathVariable String id) {
-        return bankUserService.findById(id);
+        Optional<BankUser> user = bankUserService.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException("No existe el usuario con id: " + id);
+        }
     }
 
     @PostMapping
