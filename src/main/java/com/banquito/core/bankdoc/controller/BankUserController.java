@@ -2,6 +2,7 @@ package com.banquito.core.bankdoc.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.core.bankdoc.dto.BankUserDTO;
 import com.banquito.core.bankdoc.model.BankUser;
 import com.banquito.core.bankdoc.service.BankUserService;
+import com.banquito.core.bankdoc.util.mapper.BankUserMapper;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,23 +29,25 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class BankUserController {
 
     private final BankUserService bankUserService;
+    private final BankUserMapper bankUserMapper;
 
-    public BankUserController(BankUserService bankUserService) {
+    public BankUserController(BankUserService bankUserService, BankUserMapper bankUserMapper) {
         this.bankUserService = bankUserService;
+        this.bankUserMapper = bankUserMapper;
     }
 
     @GetMapping
     @Operation(summary = "Get all bank users", description = "Retrieve a list of all bank users")
-    public List<BankUser> getAllBankUsers() {
-        return bankUserService.findAll();
+    public List<BankUserDTO> getAllBankUsers() {
+        return bankUserService.findAll().stream().map(bankUserMapper::toBankUserDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get bank user by ID", description = "Retrieve a bank user by their ID")
-    public BankUser getBankUserById(@PathVariable String id) {
-        Optional<BankUser> user = bankUserService.findById(id);
-        if (user.isPresent()) {
-            return user.get();
+    public BankUserDTO getBankUserById(@PathVariable String id) {
+        Optional<BankUser> bankUser = bankUserService.findById(id);
+        if (bankUser.isPresent()) {
+            return bankUserMapper.toBankUserDTO(bankUser.get());
         } else {
             throw new RuntimeException("No existe el usuario con id: " + id);
         }
@@ -50,15 +55,15 @@ public class BankUserController {
 
     @PostMapping
     @Operation(summary = "Create a bank user", description = "Create a new bank user")
-    public BankUser createBankUser(@RequestBody BankUser bankUser) {
-        return bankUserService.save(bankUser);
+    public BankUserDTO createBankUser(@RequestBody BankUserDTO bankUserDTO) {
+        return bankUserMapper.toBankUserDTO(bankUserService.save(bankUserMapper.toBankUser(bankUserDTO)));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a bank user", description = "Update an existing bank user")
-    public BankUser updateBankUser(@PathVariable String id, @RequestBody BankUser bankUser) {
-        bankUser.setId(id);
-        return bankUserService.save(bankUser);
+    public BankUserDTO updateBankUser(@PathVariable String id, @RequestBody BankUserDTO bankUserDTO) {
+        bankUserDTO.setId(id);
+        return bankUserMapper.toBankUserDTO(bankUserService.save(bankUserMapper.toBankUser(bankUserDTO)));
     }
 
     @DeleteMapping("/{id}")

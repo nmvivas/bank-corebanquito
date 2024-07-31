@@ -17,4 +17,20 @@ public class BankDTO {
     private String code;
     private String name;
     private Date startDate;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 }

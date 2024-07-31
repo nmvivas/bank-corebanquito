@@ -1,6 +1,7 @@
 package com.banquito.core.bankdoc.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.core.bankdoc.model.Bank;
+import com.banquito.core.bankdoc.dto.BankDTO;
 import com.banquito.core.bankdoc.service.BankService;
+import com.banquito.core.bankdoc.util.mapper.BankMapper;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,34 +27,36 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class BankController {
 
     private final BankService bankService;
+    private final BankMapper bankMapper;
 
-    public BankController(BankService bankService) {
+    public BankController(BankService bankService, BankMapper bankMapper) {
         this.bankService = bankService;
+        this.bankMapper = bankMapper;
     }
 
     @GetMapping
     @Operation(summary = "Get all banks", description = "Retrieve a list of all banks")
-    public List<Bank> getAllBanks() {
-        return bankService.findAll();
+    public List<BankDTO> getAllBanks() {
+        return bankService.findAll().stream().map(bankMapper::toBankDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get bank by ID", description = "Retrieve a bank by its ID")
-    public Bank getBankById(@PathVariable String id) {
-        return bankService.findById(id);
+    public BankDTO getBankById(@PathVariable String id) {
+        return bankMapper.toBankDTO(bankService.findById(id));
     }
 
     @PostMapping
     @Operation(summary = "Create a bank", description = "Create a new bank")
-    public Bank createBank(@RequestBody Bank bank) {
-        return bankService.save(bank);
+    public BankDTO createBank(@RequestBody BankDTO bankDTO) {
+        return bankMapper.toBankDTO(bankService.save(bankMapper.toBank(bankDTO)));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a bank", description = "Update an existing bank")
-    public Bank updateBank(@PathVariable String id, @RequestBody Bank bank) {
-        bank.setId(id);
-        return bankService.save(bank);
+    public BankDTO updateBank(@PathVariable String id, @RequestBody BankDTO bankDTO) {
+        bankDTO.setId(id);
+        return bankMapper.toBankDTO(bankService.save(bankMapper.toBank(bankDTO)));
     }
 
     @DeleteMapping("/{id}")

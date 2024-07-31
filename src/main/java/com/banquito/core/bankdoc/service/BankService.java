@@ -3,11 +3,13 @@ package com.banquito.core.bankdoc.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.banquito.core.bankdoc.model.Bank;
 import com.banquito.core.bankdoc.repository.BankRepository;
 
 @Service
+@Transactional
 public class BankService {
 
     private final BankRepository bankRepository;

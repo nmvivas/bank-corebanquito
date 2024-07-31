@@ -3,11 +3,13 @@ package com.banquito.core.bankdoc.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.banquito.core.bankdoc.model.Channel;
 import com.banquito.core.bankdoc.repository.ChannelRepository;
 
 @Service
+@Transactional
 public class ChannelService {
 
     private final ChannelRepository channelRepository;
