@@ -14,6 +14,7 @@ import com.banquito.core.bankdoc.model.Bank;
 import com.banquito.core.bankdoc.model.BankUser;
 import com.banquito.core.bankdoc.repository.BankRepository;
 import com.banquito.core.bankdoc.repository.BankUserRepository;
+import com.banquito.core.bankdoc.util.UniqueIdGeneration;
 import com.banquito.core.bankdoc.util.mapper.BankUserMapper;
 
 @Service
@@ -23,15 +24,17 @@ public class BankUserService {
     private final BankUserRepository bankUserRepository;
     private final BankRepository bankRepository;
     private final BankUserMapper bankUserMapper;
+    private final UniqueIdGeneration uniqueIdGeneration;
     private final SecureRandom random = new SecureRandom();
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int PASSWORD_LENGTH = 10;
 
     public BankUserService(BankUserRepository bankUserRepository, BankRepository bankRepository,
-            BankUserMapper bankUserMapper) {
+            BankUserMapper bankUserMapper, UniqueIdGeneration uniqueIdGeneration) {
         this.bankUserRepository = bankUserRepository;
         this.bankRepository = bankRepository;
         this.bankUserMapper = bankUserMapper;
+        this.uniqueIdGeneration = uniqueIdGeneration;
     }
 
     public List<BankUser> findAll() {
@@ -86,6 +89,7 @@ public class BankUserService {
         user.setTypeUser(dto.getTypeUser());
         user.setCreationDate(LocalDateTime.now());
         user.setLastLogin(LocalDateTime.now());
+        user.setUniqueId(uniqueIdGeneration.generateUniqueId());
 
         user.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
 
