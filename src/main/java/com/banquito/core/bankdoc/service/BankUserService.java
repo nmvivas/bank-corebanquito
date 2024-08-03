@@ -85,37 +85,34 @@ public class BankUserService {
     }
 
     public BankUserDTO create(BankUserDTO dto) {
-        logger.debug("Creating BankUser from DTO: {}", dto);
         if (this.bankUserRepository.findByUserName(dto.getUserName()) != null) {
             throw new RuntimeException("Usuario repetido");
         }
 
         BankUser user = this.bankUserMapper.toBankUser(dto);
-        logger.debug("Mapped DTO to BankUser: {}", user);
 
         List<Bank> banks = this.bankRepository.findAll();
         if (banks.isEmpty()) {
             throw new RuntimeException("No hay bancos disponibles");
         }
         Bank bank = banks.get(0);
-        logger.debug("Using Bank: {}", bank);
 
         user.setCodeBank(bank.getCode());
         user.setTypeUser(dto.getTypeUser());
         user.setCreationDate(LocalDateTime.now());
         user.setLastLogin(LocalDateTime.now());
         String uniqueId = uniqueIdGeneration.generateUniqueId();
-        logger.debug("Generated uniqueId: {}", uniqueId);
         user.setUniqueId(uniqueId);
 
+        // Log para depuración
+        System.out.println("Generated Unique ID: " + uniqueId);
+
         user.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
-        logger.debug("Hashed password for BankUser: {}", user);
 
         BankUser userCreated = this.bankUserRepository.save(user);
-        logger.debug("Saved BankUser: {}", userCreated);
         return this.bankUserMapper.toBankUserDTO(userCreated);
     }
-
+    
     public List<BankUser> findByLastName(String lastName) {
         logger.debug("Finding BankUsers by last name like: {}", lastName);
         return this.bankUserRepository.findTop100ByLastNameLikeOrderByLastNameAsc(lastName);
