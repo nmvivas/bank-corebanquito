@@ -17,8 +17,8 @@ public interface BankUserMapper {
     class BankUserFactory {
         @ObjectFactory
         public BankUser create(BankUserDTO dto) {
-            return new BankUser(dto.getId(), dto.getCodeBank(), dto.getUniqueId(), dto.getNameBank(),
-                    dto.getUserName(), dto.getLastName(), dto.getFullName(), dto.getTypeUser(),
+            return new BankUser(dto.getId(), dto.getCodeBank(), dto.getUniqueId(),
+                    dto.getUserName(), dto.getFirstName(), dto.getLastName(), dto.getFullName(), dto.getTypeUser(),
                     dto.getPassword(), dto.getCreationDate(), dto.getState(), dto.getLastLogin(),
                     dto.getEmail());
         }

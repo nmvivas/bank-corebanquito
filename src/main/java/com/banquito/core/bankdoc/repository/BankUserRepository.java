@@ -11,5 +11,5 @@ public interface BankUserRepository extends MongoRepository<BankUser, String> {
 
     BankUser findByEmail(String email);
 
-    List<BankUser> findTop100ByLastNameLikeOrderByLastNameAsc(String lastName); // Corrige esta línea
+    List<BankUser> findTop100ByLastNameLikeOrderByLastNameAsc(String lastName);
 }

@@ -14,25 +14,17 @@ public class ChannelDTO {
     private String id;
     private String code;
     private String codeBank;
-    private String nameBank;
     private String name;
 
     public void setId(String id) {
         this.id = id;
     }
-
     public void setCode(String code) {
         this.code = code;
     }
-
     public void setCodeBank(String codeBank) {
         this.codeBank = codeBank;
     }
-
-    public void setNameBank(String nameBank) {
-        this.nameBank = nameBank;
-    }
-
     public void setName(String name) {
         this.name = name;
     }

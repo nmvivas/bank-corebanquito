@@ -17,7 +17,7 @@ public interface ChannelMapper {
     class ChannelFactory {
         @ObjectFactory
         public Channel create(ChannelDTO dto) {
-            return new Channel(dto.getId(), dto.getCode(), dto.getCodeBank(), dto.getNameBank(), dto.getName());
+            return new Channel(dto.getId(), dto.getCode(), dto.getCodeBank(),dto.getName());
         }
     }
 }
