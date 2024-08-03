@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -20,6 +22,8 @@ import com.banquito.core.bankdoc.util.mapper.BankUserMapper;
 @Service
 @Transactional
 public class BankUserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(BankUserService.class);
 
     private final BankUserRepository bankUserRepository;
     private final BankRepository bankRepository;
@@ -46,17 +50,23 @@ public class BankUserService {
     }
 
     public BankUser save(BankUser bankUser) {
+        logger.debug("Saving BankUser: {}", bankUser);
         bankUser.setPassword(DigestUtils.md5DigestAsHex(bankUser.getPassword().getBytes()));
-        return bankUserRepository.save(bankUser);
+        BankUser savedUser = bankUserRepository.save(bankUser);
+        logger.debug("Saved BankUser: {}", savedUser);
+        return savedUser;
     }
 
     public void deleteById(String id) {
+        logger.debug("Deleting BankUser with id: {}", id);
         bankUserRepository.deleteById(id);
     }
 
     public BankUser findByUsername(String userName) {
+        logger.debug("Finding BankUser by username: {}", userName);
         BankUser user = this.bankUserRepository.findByUserName(userName);
         if (user != null) {
+            logger.debug("Found BankUser: {}", user);
             return user;
         } else {
             throw new RuntimeException("No existe usuario con el userName: " + userName);
@@ -64,8 +74,10 @@ public class BankUserService {
     }
 
     public BankUser findByEmail(String email) {
+        logger.debug("Finding BankUser by email: {}", email);
         BankUser user = this.bankUserRepository.findByEmail(email);
         if (user != null) {
+            logger.debug("Found BankUser: {}", user);
             return user;
         } else {
             throw new RuntimeException("No existe usuario con el email: " + email);
@@ -73,35 +85,44 @@ public class BankUserService {
     }
 
     public BankUserDTO create(BankUserDTO dto) {
+        logger.debug("Creating BankUser from DTO: {}", dto);
         if (this.bankUserRepository.findByUserName(dto.getUserName()) != null) {
             throw new RuntimeException("Usuario repetido");
         }
 
         BankUser user = this.bankUserMapper.toBankUser(dto);
+        logger.debug("Mapped DTO to BankUser: {}", user);
 
         List<Bank> banks = this.bankRepository.findAll();
         if (banks.isEmpty()) {
             throw new RuntimeException("No hay bancos disponibles");
         }
         Bank bank = banks.get(0);
+        logger.debug("Using Bank: {}", bank);
 
         user.setCodeBank(bank.getCode());
         user.setTypeUser(dto.getTypeUser());
         user.setCreationDate(LocalDateTime.now());
         user.setLastLogin(LocalDateTime.now());
-        user.setUniqueId(uniqueIdGeneration.generateUniqueId());
+        String uniqueId = uniqueIdGeneration.generateUniqueId();
+        logger.debug("Generated uniqueId: {}", uniqueId);
+        user.setUniqueId(uniqueId);
 
         user.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
+        logger.debug("Hashed password for BankUser: {}", user);
 
         BankUser userCreated = this.bankUserRepository.save(user);
+        logger.debug("Saved BankUser: {}", userCreated);
         return this.bankUserMapper.toBankUserDTO(userCreated);
     }
 
     public List<BankUser> findByLastName(String lastName) {
+        logger.debug("Finding BankUsers by last name like: {}", lastName);
         return this.bankUserRepository.findTop100ByLastNameLikeOrderByLastNameAsc(lastName);
     }
 
     public void changePassword(BankUserDTO userPassword) {
+        logger.debug("Changing password for user: {}", userPassword.getUserName());
         BankUser user = this.bankUserRepository.findByUserName(userPassword.getUserName());
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userPassword.getUserName());
@@ -109,9 +130,11 @@ public class BankUserService {
         String hashedPassword = DigestUtils.md5DigestAsHex(userPassword.getPassword().getBytes());
         user.setPassword(hashedPassword);
         this.bankUserRepository.save(user);
+        logger.debug("Changed password for user: {}", user);
     }
 
     public void generatePassword(String userName) {
+        logger.debug("Generating password for user: {}", userName);
         BankUser user = this.bankUserRepository.findByUserName(userName);
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userName);
@@ -120,6 +143,7 @@ public class BankUserService {
         String hashedPassword = DigestUtils.md5DigestAsHex(generatedPassword.getBytes());
         user.setPassword(hashedPassword);
         this.bankUserRepository.save(user);
+        logger.debug("Generated and set new password for user: {}", user);
     }
 
     private String generateRandomPassword() {

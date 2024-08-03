@@ -1,4 +1,4 @@
-# docker build -t clientdoc .
+# docker build -t bankdoc .
 # docker-compose down
 # docker-compose up -d --build
 
