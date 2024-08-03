@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/v1/bankuser")
+@RequestMapping("/bank-microservice/api/v1/bankuser")
 @CrossOrigin(origins = "*")
 @Tag(name = "BankUser", description = "Endpoints for managing bank users")
 public class BankUserController {

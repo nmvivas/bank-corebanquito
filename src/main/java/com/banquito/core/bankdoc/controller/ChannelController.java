@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/v1/channel")
+@RequestMapping("/bank-microservice/api/v1/channel")
 @CrossOrigin(origins = "*")
 @Tag(name = "Channel", description = "Endpoints for managing channels")
 public class ChannelController {
