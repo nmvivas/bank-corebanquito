@@ -35,6 +35,7 @@ public class Bank {
     private Date startDate;
 
     private List<String> userIds;
+    
     private List<String> channelIds;
 
     @Override

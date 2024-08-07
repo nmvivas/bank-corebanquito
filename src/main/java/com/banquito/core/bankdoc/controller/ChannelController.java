@@ -1,8 +1,20 @@
 package com.banquito.core.bankdoc.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.banquito.core.bankdoc.model.Channel;
+import com.banquito.core.bankdoc.service.ChannelService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -12,4 +24,34 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Channel", description = "Endpoints for managing channels")
 public class ChannelController {
 
+    private final ChannelService channelService;
+
+    public ChannelController(ChannelService channelService) {
+        this.channelService = channelService;
+    }
+
+    @GetMapping
+    public List<Channel> obtenerTodosLosCanales() {
+        return channelService.obtenerTodosLosCanales();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Channel> obtenerCanalPorId(@PathVariable String id) {
+        return channelService.obtenerCanalPorId(id);
+    }
+
+    @PostMapping
+    public Channel crearCanal(@RequestBody Channel channel) {
+        return channelService.crearCanal(channel);
+    }
+
+    @PutMapping
+    public Channel actualizarCanal(@RequestBody Channel channel) {
+        return channelService.actualizarCanal(channel);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminarCanal(@PathVariable String id) {
+        channelService.eliminarCanal(id);
+    }
 }
