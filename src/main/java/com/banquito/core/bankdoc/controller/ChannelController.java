@@ -25,6 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Channel", description = "Endpoints for managing channels")
 public class ChannelController {
 
+
     private final ChannelService channelService;
 
     public ChannelController(ChannelService channelService) {

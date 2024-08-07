@@ -22,6 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Authentication", description = "Endpoints for authentication")
 public class AuthenticationController {
 
+
     private final AuthenticationService authenticationService;
     private final LoginRequestMapper loginRequestMapper = LoginRequestMapper.INSTANCE;
 

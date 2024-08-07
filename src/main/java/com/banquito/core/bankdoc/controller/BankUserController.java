@@ -25,6 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "BankUser", description = "Endpoints for managing bank users")
 public class BankUserController {
 
+
     private final BankUserService bankUserService;
 
     public BankUserController(BankUserService bankUserService) {
