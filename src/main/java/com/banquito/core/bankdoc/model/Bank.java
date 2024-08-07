@@ -1,7 +1,6 @@
 package com.banquito.core.bankdoc.model;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -33,10 +32,6 @@ public class Bank {
 
     @NotNull
     private Date startDate;
-
-    private List<String> userIds;
-    
-    private List<String> channelIds;
 
     @Override
     public int hashCode() {
