@@ -17,23 +17,23 @@ public class BankService {
         this.bankRepository = bankRepository;
     }
 
-    public List<Bank> obtenerTodosLosBancos() {
+    public List<Bank> getAllBanks() {
         return bankRepository.findAll();
     }
 
-    public Optional<Bank> obtenerBancoPorId(String id) {
+    public Optional<Bank> getBankById(String id) {
         return bankRepository.findById(id);
     }
 
-    public Bank crearBanco(Bank bank) {
+    public Bank createBank(Bank bank) {
         return bankRepository.save(bank);
     }
 
-    public Bank actualizarBanco(Bank bank) {
+    public Bank updateBank(Bank bank) {
         return bankRepository.save(bank);
     }
 
-    public void eliminarBanco(String id) {
+    public void deleteBank(String id) {
         bankRepository.deleteById(id);
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.core.bankdoc.model.Channel;
 import com.banquito.core.bankdoc.service.ChannelService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -31,27 +32,32 @@ public class ChannelController {
     }
 
     @GetMapping
-    public List<Channel> obtenerTodosLosCanales() {
-        return channelService.obtenerTodosLosCanales();
+    @Operation(summary = "Get All Channels", description = "Retrieve a list of all channels")
+    public List<Channel> getAllChannels() {
+        return channelService.getAllChannels();
     }
 
     @GetMapping("/{id}")
-    public Optional<Channel> obtenerCanalPorId(@PathVariable String id) {
-        return channelService.obtenerCanalPorId(id);
+    @Operation(summary = "Get Channel by ID", description = "Retrieve a channel by its ID")
+    public Optional<Channel> getChannelById(@PathVariable String id) {
+        return channelService.getChannelById(id);
     }
 
     @PostMapping
-    public Channel crearCanal(@RequestBody Channel channel) {
-        return channelService.crearCanal(channel);
+    @Operation(summary = "Create Channel", description = "Create a new channel")
+    public Channel createChannel(@RequestBody Channel channel) {
+        return channelService.createChannel(channel);
     }
 
     @PutMapping
-    public Channel actualizarCanal(@RequestBody Channel channel) {
-        return channelService.actualizarCanal(channel);
+    @Operation(summary = "Update Channel", description = "Update an existing channel")
+    public Channel updateChannel(@RequestBody Channel channel) {
+        return channelService.updateChannel(channel);
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarCanal(@PathVariable String id) {
-        channelService.eliminarCanal(id);
+    @Operation(summary = "Delete Channel", description = "Delete a channel by its ID")
+    public void deleteChannel(@PathVariable String id) {
+        channelService.deleteChannel(id);
     }
 }

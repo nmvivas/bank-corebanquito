@@ -24,41 +24,42 @@ public class BankUserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public List<BankUser> obtenerTodosLosUsuarios() {
+    public List<BankUser> getAllUsers() {
         return bankUserRepository.findAll();
     }
 
-    public Optional<BankUser> obtenerUsuarioPorUniqueId(String uniqueId) {
+    public Optional<BankUser> getUserByUniqueId(String uniqueId) {
         return bankUserRepository.findByUniqueId(uniqueId);
     }
 
-    public BankUser crearUsuario(BankUser bankUser) {
+    public BankUser createUser(BankUser bankUser) {
         bankUser.setUniqueId(uniqueIdGeneration.generateUniqueId());
         bankUser.setPassword(passwordEncoder.encode(bankUser.getPassword()));
         return bankUserRepository.save(bankUser);
     }
 
-    public BankUser actualizarUsuario(BankUser bankUser) {
+    public BankUser updateUser(BankUser bankUser) {
         return bankUserRepository.save(bankUser);
     }
 
-    public void eliminarUsuario(String id) {
-        bankUserRepository.deleteById(id);
+    public void deleteUserByUniqueId(String uniqueId) {
+        Optional<BankUser> user = bankUserRepository.findByUniqueId(uniqueId);
+        user.ifPresent(bankUser -> bankUserRepository.deleteById(bankUser.getId()));
     }
 
-    public Optional<BankUser> obtenerUsuarioPorEmail(String email) {
+    public Optional<BankUser> getUserByEmail(String email) {
         return bankUserRepository.findByEmail(email);
     }
 
-    public Optional<BankUser> obtenerUsuarioPorUserName(String userName) {
+    public Optional<BankUser> getUserByUserName(String userName) {
         return bankUserRepository.findByUserName(userName);
     }
 
-    public Optional<BankUser> obtenerUsuarioPorTypeUser(String typeUser) {
+    public Optional<BankUser> getUserByTypeUser(String typeUser) {
         return bankUserRepository.findByTypeUser(typeUser);
     }
 
-    public Optional<BankUser> obtenerUsuarioPorFullName(String fullName) {
+    public Optional<BankUser> getUserByFullName(String fullName) {
         return bankUserRepository.findByFullName(fullName);
     }
 }

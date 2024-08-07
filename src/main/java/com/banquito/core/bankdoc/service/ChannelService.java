@@ -17,23 +17,23 @@ public class ChannelService {
         this.channelRepository = channelRepository;
     }
 
-    public List<Channel> obtenerTodosLosCanales() {
+    public List<Channel> getAllChannels() {
         return channelRepository.findAll();
     }
 
-    public Optional<Channel> obtenerCanalPorId(String id) {
+    public Optional<Channel> getChannelById(String id) {
         return channelRepository.findById(id);
     }
 
-    public Channel crearCanal(Channel channel) {
+    public Channel createChannel(Channel channel) {
         return channelRepository.save(channel);
     }
 
-    public Channel actualizarCanal(Channel channel) {
+    public Channel updateChannel(Channel channel) {
         return channelRepository.save(channel);
     }
 
-    public void eliminarCanal(String id) {
+    public void deleteChannel(String id) {
         channelRepository.deleteById(id);
     }
 }

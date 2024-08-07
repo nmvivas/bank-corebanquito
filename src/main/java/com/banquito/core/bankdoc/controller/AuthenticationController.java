@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.core.bankdoc.model.BankUser;
 import com.banquito.core.bankdoc.service.AuthenticationService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -26,6 +27,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login", description = "Authenticate user with username and password")
     public Optional<BankUser> login(@RequestParam String userName, @RequestParam String password) {
         return authenticationService.login(userName, password);
     }

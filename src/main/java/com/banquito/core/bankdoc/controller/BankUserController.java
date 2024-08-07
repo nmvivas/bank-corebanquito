@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.core.bankdoc.model.BankUser;
 import com.banquito.core.bankdoc.service.BankUserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -31,47 +32,56 @@ public class BankUserController {
     }
 
     @GetMapping
-    public List<BankUser> obtenerTodosLosUsuarios() {
-        return bankUserService.obtenerTodosLosUsuarios();
+    @Operation(summary = "Get All Users", description = "Retrieve a list of all bank users")
+    public List<BankUser> getAllUsers() {
+        return bankUserService.getAllUsers();
     }
 
     @GetMapping("/{uniqueId}")
-    public Optional<BankUser> obtenerUsuarioPorUniqueId(@PathVariable String uniqueId) {
-        return bankUserService.obtenerUsuarioPorUniqueId(uniqueId);
+    @Operation(summary = "Get User by Unique ID", description = "Retrieve a bank user by their unique ID")
+    public Optional<BankUser> getUserByUniqueId(@PathVariable String uniqueId) {
+        return bankUserService.getUserByUniqueId(uniqueId);
     }
 
     @PostMapping
-    public BankUser crearUsuario(@RequestBody BankUser bankUser) {
-        return bankUserService.crearUsuario(bankUser);
+    @Operation(summary = "Create User", description = "Create a new bank user")
+    public BankUser createUser(@RequestBody BankUser bankUser) {
+        return bankUserService.createUser(bankUser);
     }
 
     @PutMapping
-    public BankUser actualizarUsuario(@RequestBody BankUser bankUser) {
-        return bankUserService.actualizarUsuario(bankUser);
+    @Operation(summary = "Update User", description = "Update an existing bank user")
+    public BankUser updateUser(@RequestBody BankUser bankUser) {
+        return bankUserService.updateUser(bankUser);
     }
 
-    @DeleteMapping("/{id}")
-    public void eliminarUsuario(@PathVariable String id) {
-        bankUserService.eliminarUsuario(id);
+    @DeleteMapping("/{uniqueId}")
+    @Operation(summary = "Delete User by Unique ID", description = "Delete a bank user by their unique ID")
+    public void deleteUserByUniqueId(@PathVariable String uniqueId) {
+        bankUserService.deleteUserByUniqueId(uniqueId);
     }
 
     @GetMapping("/email/{email}")
-    public Optional<BankUser> obtenerUsuarioPorEmail(@PathVariable String email) {
-        return bankUserService.obtenerUsuarioPorEmail(email);
+    @Operation(summary = "Get User by Email", description = "Retrieve a bank user by their email")
+    public Optional<BankUser> getUserByEmail(@PathVariable String email) {
+        return bankUserService.getUserByEmail(email);
     }
 
     @GetMapping("/username/{userName}")
-    public Optional<BankUser> obtenerUsuarioPorUserName(@PathVariable String userName) {
-        return bankUserService.obtenerUsuarioPorUserName(userName);
+    @Operation(summary = "Get User by Username", description = "Retrieve a bank user by their username")
+    public Optional<BankUser> getUserByUserName(@PathVariable String userName) {
+        return bankUserService.getUserByUserName(userName);
     }
 
     @GetMapping("/typeuser/{typeUser}")
-    public Optional<BankUser> obtenerUsuarioPorTypeUser(@PathVariable String typeUser) {
-        return bankUserService.obtenerUsuarioPorTypeUser(typeUser);
+    @Operation(summary = "Get User by Type", description = "Retrieve a bank user by their type")
+    public Optional<BankUser> getUserByTypeUser(@PathVariable String typeUser) {
+        return bankUserService.getUserByTypeUser(typeUser);
     }
 
     @GetMapping("/fullname/{fullName}")
-    public Optional<BankUser> obtenerUsuarioPorFullName(@PathVariable String fullName) {
-        return bankUserService.obtenerUsuarioPorFullName(fullName);
+    @Operation(summary = "Get User by Full Name", description = "Retrieve a bank user by their full name")
+    public Optional<BankUser> getUserByFullName(@PathVariable String fullName) {
+        return bankUserService.getUserByFullName(fullName);
     }
 }
