@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,21 +18,18 @@ import lombok.ToString;
 public class Channel {
 
     @Id
+    @NotNull
     private String id;
 
     @Indexed(unique = true)
+    @NotNull
     private String code;
 
+    @NotNull
     private String codeBank;
 
+    @NotNull
     private String name;
-
-    public Channel(String id, String code, String codeBank, String name) {
-        this.id = id;
-        this.code = code;
-        this.codeBank = codeBank;
-        this.name = name;
-    }
 
     @Override
     public int hashCode() {
@@ -63,5 +61,4 @@ public class Channel {
             return false;
         return true;
     }
-
 }
