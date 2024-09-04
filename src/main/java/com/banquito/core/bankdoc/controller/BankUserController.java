@@ -3,6 +3,8 @@ package com.banquito.core.bankdoc.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +42,13 @@ public class BankUserController {
 
     @GetMapping("/{uniqueId}")
     @Operation(summary = "Get User by Unique ID", description = "Retrieve a bank user by their unique ID")
-    public Optional<BankUser> getUserByUniqueId(@PathVariable String uniqueId) {
-        return bankUserService.getUserByUniqueId(uniqueId);
+    public ResponseEntity<BankUser> getUserByUniqueId(@PathVariable String uniqueId) {
+        Optional<BankUser> bankUser = bankUserService.getUserByUniqueId(uniqueId);
+        if (bankUser.isPresent()) {
+            return ResponseEntity.ok(bankUser.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PostMapping

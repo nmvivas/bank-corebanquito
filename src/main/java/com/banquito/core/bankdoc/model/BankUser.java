@@ -1,5 +1,6 @@
 package com.banquito.core.bankdoc.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;

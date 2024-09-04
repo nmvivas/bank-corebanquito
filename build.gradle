@@ -34,7 +34,10 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'    
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-junit-jupiter'   
 }
 
 sourceSets {
@@ -46,7 +49,16 @@ sourceSets {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+	useJUnitPlatform()
+		testLogging {
+		events "passed", "failed", "skipped"  
+		exceptionFormat "full"  
+		showStandardStreams = true  
+	}
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-parameters']
 }
 
 compileJava {
